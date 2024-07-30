@@ -23,15 +23,15 @@ const players: Array<Player> = await getPlayers()
 console.log({players})
 
 console.log('Creating attendance...')
-for (const training in trainings) {
-    await players.forEach(player => {
+for (const training of trainings) {
+    for (const player of players) {
         const attendance: Attendance = {
             name: player.name,
             player: player.id,
             train: training
         }
-        createAttendance(attendance)
-    });
+        await createAttendance(attendance)
+    }
 }
 
 console.log("Adding Update...")
