@@ -1,0 +1,25 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Run
+
+env:
+  NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+  NOTION_HOST: ${{ secrets.NOTION_HOST }}
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *'
+    
+
+jobs:
+  process-attendance:
+    runs-on: ubuntu-latest
+    container: node:21
+    steps:
+      - run: node --version
+      - run: npm --version
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npx tsx main.ts
