@@ -19,7 +19,7 @@ const trainings: Array<TrainingId> = await getTrainings(actualUpdate)
 console.log({trainings})
 
 console.log('Retrieving players...')
-const players: Array<Player> = await getPlayers()
+const players: Array<Player> = await getFirstTeamPlayers()
 console.log({players})
 
 console.log('Creating attendance...')
