@@ -1,7 +1,7 @@
 import {createUpdate, getLastUpdate, NotionUpdate} from "./src/notion/NotionUpdates";
 import moment, {Moment} from "moment";
 import { getTrainings, TrainingId } from "./src/notion/TrainingFinder";
-import { getPlayers, Player } from "./src/notion/PlayerFinder";
+import { getFirstTeamPlayers, Player } from "./src/notion/PlayerFinder";
 import { Attendance, createAttendance } from "./src/notion/AttendanceCreator";
 
 console.log("Retrieving last update...")
