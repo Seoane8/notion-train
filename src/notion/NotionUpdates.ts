@@ -1,5 +1,8 @@
 import {query, save} from "./NotionApi";
 import moment, {Moment} from "moment";
+import config from "../utils/Configuration";
+
+const DB: string = config.UPDATES_DB;
 
 export type NotionUpdate = {
     from: Moment;
@@ -32,7 +35,7 @@ export async function getLastUpdate(): Promise<NotionUpdate> {
         ],
         "page_size": 1
     }
-    const data: Array<NotionUpdateDTO> = await query<NotionUpdateDTO>("ebc2d5de642f488f8ff1f559625638da", body);
+    const data: Array<NotionUpdateDTO> = await query<NotionUpdateDTO>(DB, body);
 
     return {
         from: moment(data.at(0).properties.Desde.date.start),
@@ -69,5 +72,5 @@ export async function createUpdate(update: NotionUpdate): Promise<void> {
 
     const icon = undefined
 
-    await save('ebc2d5de642f488f8ff1f559625638da', icon, updateDTO);
+    await save(DB, icon, updateDTO);
 }

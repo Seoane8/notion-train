@@ -1,4 +1,7 @@
 import {save} from "./NotionApi";
+import config from "../utils/Configuration";
+
+const DB: string = config.STATS_DB;
 
 export type Stat = {
     name: string,
@@ -63,5 +66,5 @@ export async function createStat(stat: Stat): Promise<void> {
         }
     };
 
-    await save('da93aaada4f9460a8e9fa3c0f24a183a', undefined, statDTO);
+    await save(DB, undefined, statDTO);
 }

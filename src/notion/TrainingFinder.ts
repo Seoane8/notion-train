@@ -1,5 +1,8 @@
 import {query} from "./NotionApi";
 import { NotionUpdate } from "./NotionUpdates";
+import config from "../utils/Configuration";
+
+const DB: string = config.TRAINING_DB;
 
 export type TrainingId = string;
 
@@ -28,7 +31,7 @@ export async function getTrainings(update: NotionUpdate): Promise<Array<Training
         }
     }
 
-    const data: Array<TrainingDTO> = await query<TrainingDTO>("4f5314cb4f4a49bcb6ad27156ed1b327", body);
+    const data: Array<TrainingDTO> = await query<TrainingDTO>(DB, body);
 
     return data.map((training: TrainingDTO): TrainingId => training.id);
 }

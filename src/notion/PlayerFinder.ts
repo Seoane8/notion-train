@@ -1,5 +1,7 @@
 import {query} from "./NotionApi";
-import { NotionUpdate } from "./NotionUpdates";
+import config from "../utils/Configuration";
+
+const DB: string = config.PLAYER_DB;
 
 export type PlayerId = string;
 export type Player = {
@@ -17,7 +19,7 @@ export async function getPlayers(): Promise<Array<Player>> {
         };
     };
 
-    const data: Array<PlayerDTO> = await query<PlayerDTO>("1c214cc49e2f4ec9ba47d54a51f3c546", undefined);
+    const data: Array<PlayerDTO> = await query<PlayerDTO>(DB, undefined);
 
     return data.map((player: PlayerDTO): Player => ({
         id: player.id,
@@ -44,7 +46,7 @@ export async function getFirstTeamPlayers(): Promise<Array<Player>> {
         }
     }
 
-    const data: Array<PlayerDTO> = await query<PlayerDTO>("1c214cc49e2f4ec9ba47d54a51f3c546", body);
+    const data: Array<PlayerDTO> = await query<PlayerDTO>(DB, body);
 
     return data.map((player: PlayerDTO): Player => ({
         id: player.id,

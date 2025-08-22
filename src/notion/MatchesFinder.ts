@@ -1,5 +1,8 @@
 import {query} from "./NotionApi";
 import { NotionUpdate } from "./NotionUpdates";
+import config from "../utils/Configuration";
+
+const DB: string = config.MATCH_DB;
 
 export type MatchId = string;
 
@@ -28,7 +31,7 @@ export async function getMatches(update: NotionUpdate): Promise<Array<MatchId>> 
         }
     }
 
-    const data: Array<MatchDTO> = await query<MatchDTO>("736540429d1c42529911e4ea8641c9dd", body);
+    const data: Array<MatchDTO> = await query<MatchDTO>(DB, body);
 
     return data.map((training: MatchDTO): MatchId => training.id);
 }

@@ -1,4 +1,7 @@
 import {save} from "./NotionApi";
+import config from "../utils/Configuration";
+
+const DB: string = config.ATTENDANCE_DB;
 
 export type Attendance = {
     name: string,
@@ -63,5 +66,5 @@ export async function createAttendance(attendance: Attendance): Promise<void> {
         }
     };
 
-    await save('4dff814c40d5418182ef5f4779a814c7', undefined, attendanceDTO);
+    await save(DB, undefined, attendanceDTO);
 }
