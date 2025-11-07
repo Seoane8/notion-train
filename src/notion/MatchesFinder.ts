@@ -1,33 +1,23 @@
 import {query} from "./NotionApi";
-import { NotionUpdate } from "./NotionUpdates";
 import config from "../utils/Configuration";
 
 const DB: string = config.MATCH_DB;
 
 export type MatchId = string;
 
-export async function getMatches(update: NotionUpdate): Promise<Array<MatchId>> {
+export async function getMatches(): Promise<Array<MatchId>> {
     type MatchDTO = {
         id: string;
     };
 
     const body: any = {
         "filter": {
-            "and": [
-                {
-                    "timestamp": "created_time",
-                    "created_time": {
-                        "after": update.from
-                    }
-                },
-                {
-                    "timestamp": "created_time",
-                    "created_time": {
-                        "on_or_before": update.to
-                    }
+            "property": "Estadísticas Cargadas",
+            "formula": {
+                "checkbox": {
+                    "equals": false
                 }
-
-            ]
+            }
         }
     }
 

@@ -1,27 +1,15 @@
-import {createUpdate, getLastUpdate, NotionUpdate} from "./src/notion/NotionUpdates";
-import moment from "moment/moment";
 import {getTrainings, TrainingId} from "./src/notion/TrainingFinder";
 import {getFirstTeamPlayers, Player} from "./src/notion/PlayerFinder";
 import {Attendance, createAttendance} from "./src/notion/AttendanceCreator";
 import {getMatches, MatchId} from "./src/notion/MatchesFinder";
 import {createStat, Stat} from "./src/notion/StatsCreator";
 
-console.log("Retrieving last update...")
-const lastUpdate: NotionUpdate = await getLastUpdate()
-console.log('Last update: ' + lastUpdate)
-const actualUpdate: NotionUpdate = {
-    from: lastUpdate.to,
-    to: moment()
-}
-
-console.log(`Processing trainings from ${actualUpdate.from} to ${actualUpdate.to}`)
-
 console.log('Retrieving trainings...')
-const trainings: Array<TrainingId> = await getTrainings(actualUpdate)
+const trainings: Array<TrainingId> = await getTrainings()
 console.log({trainings})
 
 console.log('Retrieving matches...')
-const matches: Array<MatchId> = await getMatches(actualUpdate)
+const matches: Array<MatchId> = await getMatches()
 console.log({matches})
 
 console.log('Retrieving players...')
@@ -51,6 +39,3 @@ for (const match of matches) {
         await createStat(stat)
     }
 }
-
-console.log("Adding Update...")
-await createUpdate(actualUpdate)
